@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>给妈妈的母亲节专属信封</title>
+<style>
+* {margin:0;padding:0;box-sizing:border-box;}
+body {
+  background: #FFF0F5;
+  font-family: "微软雅黑",serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  overflow:hidden;
+}
+/* 信封容器 */
+.envelope {
+  width: 320px;
+  height: 220px;
+  background: #f8d8e2;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 8px 25px #e8c8d5;
+  transition: all 1s ease;
+}
+/* 信封盖子 */
+.envelope-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110px;
+  background: #f4c8d8;
+  border-radius: 10px 10px 0 0;
+  transform-origin: top;
+  transform: rotateX(0deg);
+  transition: transform 1.2s ease;
+  z-index:2;
+}
+.envelope.open .envelope-top{
+  transform: rotateX(-120deg);
+}
+/* 信纸 */
+.letter{
+  position:absolute;
+  top:20px;
+  left:15px;
+  right:15px;
+  bottom:15px;
+  background:#fff;
+  border-radius:6px;
+  padding:20px 15px;
+  font-size:15px;
+  line-height:1.8;
+  color:#663344;
+  opacity:0;
+  transition:opacity 1.5s ease 0.5s;
+  z-index:1;
+}
+.envelope.open .letter{
+  opacity:1;
+}
+/* 密码弹窗 */
+.pop-box{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#fff;
+  padding:30px 25px;
+  border-radius:12px;
+  box-shadow:0 5px 30px #ccc;
+  text-align:center;
+  z-index:999;
+  display:none;
+  width:280px;
+}
+.pop-box.show{display:block;}
+.pop-box p{
+  color:#b86b8a;
+  margin-bottom:15px;
+  font-size:16px;
+}
+.pop-box input{
+  width:100%;
+  padding:10px;
+  border:1px solid #f0c8d8;
+  border-radius:6px;
+  font-size:16px;
+  text-align:center;
+  margin-bottom:15px;
+  outline:none;
+}
+.pop-box button{
+  background:#f4b8cc;
+  border:none;
+  color:#fff;
+  padding:8px 20px;
+  border-radius:6px;
+  font-size:15px;
+  cursor:pointer;
+}
+.tip{
+  position:fixed;
+  bottom:30px;
+  color:#b86b8a;
+  font-size:14px;
+}
+</style>
+</head>
+<body>
+
+<div class="envelope" id="env">
+  <div class="envelope-top"></div>
+  <div class="letter">
+    敬爱的妈妈：<br><br>
+    母亲节快乐～(^з^)-☆<br><br>
+    美有很多种<br>
+    妈妈就是其中一种<br>
+    我的妈妈是时光深处最温柔的美人<br>
+    愿时光对我的妈妈温柔以待<br>
+    愿岁月让我的妈妈笑靥如花。<br><br>
+    —爱你的女儿阳阳( ˘ ³˘)❤
+  </div>
+</div>
+
+<!-- 第一个密码弹窗 -->
+<div class="pop-box" id="pop1">
+  <p>请输入第一道阳阳的生日密码</p>
+  <input type="text" id="pwd1" placeholder="输入密码">
+  <button onclick="checkPwd1()">确认</button>
+</div>
+
+<!-- 第二个密码弹窗 -->
+<div class="pop-box" id="pop2">
+  <p>请输入第二道自己的生日密码</p>
+  <input type="text" id="pwd2" placeholder="输入密码">
+  <button onclick="checkPwd2()">确认</button>
+</div>
+
+<div class="tip">专属母亲节 · 只为妈妈</div>
+
+<script>
+// 固定密码
+const pass1 = "1109";
+const pass2 = "0313";
+
+// 打开第一个弹窗
+window.onload = function(){
+  document.getElementById("pop1").classList.add("show");
+}
+
+// 验证第一个密码
+function checkPwd1(){
+  let val = document.getElementById("pwd1").value.trim();
+  if(val === pass1){
+    document.getElementById("pop1").classList.remove("show");
+    setTimeout(()=>{
+      document.getElementById("pop2").classList.add("show");
+    },300);
+  }else{
+    alert("密码不对哦，再试试～");
+    document.getElementById("pwd1").value = "";
+  }
+}
+
+// 验证第二个密码
+function checkPwd2(){
+  let val = document.getElementById("pwd2").value.trim();
+  if(val === pass2){
+    document.getElementById("pop2").classList.remove("show");
+    // 信封展开
+    document.getElementById("env").classList.add("open");
+  }else{
+    alert("密码错误，重新输入～");
+    document.getElementById("pwd2").value = "";
+  }
+}
+</script>
+
+</body>
+</html>
